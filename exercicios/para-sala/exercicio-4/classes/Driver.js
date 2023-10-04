@@ -1,46 +1,36 @@
-export class Driver {
-	name;
-	age;
+import { Person } from "./Person.js";
+export class Driver extends Person {
 	numberOfRides = 0;
-	#amountEarned = 0;
 
-  static drivers = [];
+  	static drivers = [];
 
 	constructor(name, age) {
+		// super(name, age); 
 		if (age < 18) {
 			return new Error(
 				'É necessário ter mais de 18 anos para ser um motorista'
-			);
-		}
-		this.name = name;
-		this.age = age;
-    this.constructor.drivers.push({ name: name, age: age });
+				);
+			}
+			
+		super(name, age); // o super tem que ser a primeira informação passada dentro do construtor, mas se tiver uma condição antes, pode ser chamado depois
+    	this.constructor.drivers.push({ name: name, age: age });
+
 	}
 
 	runDrive(amount) {
-		this.amountEarned += amount;
+		this.amount += amount; // não precisa de #amount pq em person é privado e para acessar é preciso Person.amount
 		this.numberOfRides++;
 	}
 
-  static numberOfDrivers() {
-		console.log(`O total de motoristas cadastradas é: ${this.drivers.length}`);
+  	static numberOfDrivers() {
+		const numberOfDrivers = super.numberOfPersons(this.drivers) // podemos colocar o nome direto do atributo ou o Driver.drivers
+		console.log(`O total de motoristas cadastradas é: ${numberOfDrivers}`);
 	}
 
 	static ageAverage() {
-		const totalOfDrivers = this.drivers.length;
+		const ageAverageDrivers = super.ageAverage(this.drivers);
 
-    if(totalOfDrivers === 0) return;
-
-		const ageSum = this.drivers.reduce((total, motorista) => total + motorista.age, 0);
-		const ageAverage = (ageSum / totalOfDrivers).toFixed(2);
-		console.log(`A média de idade das motoristas é de: ${ageAverage}`);
+		console.log(`A média de idade das motoristas é de: ${ageAverageDrivers}`);
 	}
 
-  get amountEarned() {
-		return this.#amountEarned;
-	}
-
-	set amountEarned(amount) {
-		this.#amountEarned = amount;
-	}
 }

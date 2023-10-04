@@ -28,3 +28,9 @@ console.log('amount da passageira 1: ', passageira1.amount);
 console.log('amount da passageira 2: ', passageira2.amount);
 console.log('amount da motorista 1: ', motorista1.amount);
 console.log('amount da motorista 2: ', motorista2.amount);
+
+Passenger.numberOfPassengers();
+Driver.numberOfDrivers()
+
+Driver.ageAverage()
+Passenger.ageAverage()
